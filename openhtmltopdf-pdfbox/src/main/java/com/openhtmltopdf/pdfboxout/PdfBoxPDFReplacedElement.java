@@ -30,7 +30,6 @@ import com.openhtmltopdf.swing.ImageMapParser;
 import com.openhtmltopdf.util.LogMessageId;
 import com.openhtmltopdf.util.XRLog;
 
-import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.multipdf.LayerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -74,7 +73,7 @@ public class PdfBoxPDFReplacedElement implements PdfBoxReplacedElement, IPdfBoxE
     }
 
     public static PdfBoxPDFReplacedElement create(PDDocument target, byte[] pdfBytes, Element e, Box box, CssContext ctx, SharedContext shared) {
-        try (PDDocument srcDocument = Loader.loadPDF(pdfBytes)){
+        try (PDDocument srcDocument = PDDocument.load(pdfBytes)){
             int pageNo = parsePage(e);
             if (pageNo >= srcDocument.getNumberOfPages()) {
                 XRLog.log(Level.WARNING, LogMessageId.LogMessageId0Param.LOAD_PAGE_DOES_NOT_EXIST_FOR_PDF_IN_IMG_TAG);
